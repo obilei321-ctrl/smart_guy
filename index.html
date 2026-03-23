@@ -4,19 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DON'T GIVE UP - KTH Service Platform</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0055A5">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="DGU KTH">
-    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/KTH_Royal_Institute_of_Technology_logo.svg/1200px-KTH_Royal_Institute_of_Technology_logo.svg.png">
-    
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-          .then(() => console.log("Service Worker Registered"));
-      }
-    </script>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -52,31 +39,35 @@
         .tab:hover { background-color: #e9ecef; }
         .tab.active { color: var(--primary-color); border-bottom: 3px solid var(--primary-color); font-weight: bold; background-color: #fff; }
         
-        /* Card Grid Update for Thumbnails */
+        /* Card Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .card { 
             background: white; border-radius: 10px; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             display: flex; flex-direction: column; 
             cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-            overflow: hidden; /* Keeps image corners rounded */
+            overflow: hidden; 
             border: 1px solid #eee;
         }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         
-        /* Thumbnail Image */
         .card-img-top { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid #eee; background-color: #f8f9fa;}
         
         .card-body { padding: 15px; }
-        .card h3 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .card-desc { display: none; } /* Hidden in thumbnail, shown in modal */
-        .location { font-size: 0.85rem; color: #888; margin-bottom: 10px;}
+        .card h3 { margin: 0 0 8px 0; color: var(--primary-color); font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        
+        /* New Badge Style */
+        .badge-new { font-size: 0.65rem; background: var(--secondary-color); color: black; padding: 3px 6px; border-radius: 10px; vertical-align: middle; margin-left: 5px; font-weight: bold;}
+        
+        /* Meta Info (Location & Time) */
+        .post-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+        .card-desc { display: none; } 
         .card-price-summary { font-weight: bold; color: var(--text-color); font-size: 0.95rem; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between;}
         .summary-kathie { color: var(--kathie-color); }
 
         .hidden { display: none !important; }
 
-        /* Modals (Post Form & Detail View) */
+        /* Modals */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; overflow-y: auto; padding: 20px 0; backdrop-filter: blur(3px);}
         .modal { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 550px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin: auto; position: relative;}
         
@@ -86,7 +77,7 @@
         /* Detail Modal Specifics */
         .detail-img-large { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; background-color: #eee;}
         .detail-modal h2 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 1.8rem;}
-        .detail-modal .location { font-size: 1rem; color: #666; margin-bottom: 15px; }
+        .detail-meta { display: flex; gap: 15px; font-size: 0.95rem; color: #666; margin-bottom: 15px; }
         .detail-modal p { font-size: 1.05rem; line-height: 1.5; color: #444; margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;}
         
         .pricing-box { background-color: #fff; border-radius: 8px; padding: 15px; border: 2px dashed #ddd; }
@@ -140,8 +131,11 @@
         <div class="card" onclick="openItemDetail(this)">
             <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Power Drill">
             <div class="card-body">
-                <h3 class="item-title">Power Drill</h3>
-                <div class="location item-loc">📍 Lappis</div>
+                <h3 class="item-title">Power Drill <span class="badge-new">NEW</span></h3>
+                <div class="post-meta">
+                    <span class="location item-loc">📍 Lappis</span>
+                    <span class="post-time item-time">🕒 Today, 09:15</span>
+                </div>
                 <p class="card-desc item-desc">Perfect for weekend furniture assembly. Fully charged with all drill bits included. Can lend it for the whole weekend.</p>
                 <div class="card-price-summary">
                     <span><span class="raw-sek">20</span> SEK</span>
@@ -156,7 +150,10 @@
             <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6ea?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="IKEA Desk">
             <div class="card-body">
                 <h3 class="item-title">IKEA Desk</h3>
-                <div class="location item-loc">📍 Teknikringen</div>
+                <div class="post-meta">
+                    <span class="location item-loc">📍 Teknikringen</span>
+                    <span class="post-time item-time">🕒 Yesterday</span>
+                </div>
                 <p class="card-desc item-desc">Graduation clearance. Great condition, standard 120x60cm white desk. You will need an extra hand to move it downstairs.</p>
                 <div class="card-price-summary">
                     <span><span class="raw-sek">150</span> SEK</span>
@@ -171,7 +168,10 @@
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Moving Boxes">
             <div class="card-body">
                 <h3 class="item-title">Help moving 3 boxes</h3>
-                <div class="location item-loc">📍 Universitetet Station</div>
+                <div class="post-meta">
+                    <span class="location item-loc">📍 Universitetet Station</span>
+                    <span class="post-time item-time">🕒 Oct 22</span>
+                </div>
                 <p class="card-desc item-desc">Need strong arms to help me move 3 heavy boxes from the T-bana station to my corridor room. Should take about 20 mins.</p>
                 <div class="card-price-summary">
                     <span><span class="raw-sek">50</span> SEK</span>
@@ -185,8 +185,11 @@
         <div class="card" onclick="openItemDetail(this)">
             <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Coding">
             <div class="card-body">
-                <h3 class="item-title">Python Debugging Help</h3>
-                <div class="location item-loc">📍 KTH Library</div>
+                <h3 class="item-title">Python Debugging Help <span class="badge-new">NEW</span></h3>
+                <div class="post-meta">
+                    <span class="location item-loc">📍 KTH Library</span>
+                    <span class="post-time item-time">🕒 Today, 11:30</span>
+                </div>
                 <p class="card-desc item-desc">Stuck on a machine learning assignment (pandas/numpy). Need someone to sit with me for 1 hour to figure out where my array shapes are going wrong.</p>
                 <div class="card-price-summary">
                     <span><span class="raw-sek">80</span> SEK</span>
@@ -202,7 +205,10 @@
         <span class="close-btn" onclick="closeDetailModal()">&times;</span>
         <img id="detailImg" class="detail-img-large" src="" alt="Item Image">
         <h2 id="detailTitle">Item Title</h2>
-        <div class="location" id="detailLoc">📍 Location</div>
+        <div class="detail-meta">
+            <span id="detailLoc">📍 Location</span>
+            <span id="detailTime">🕒 Time</span>
+        </div>
         <p id="detailDesc">Full description goes here.</p>
         
         <div class="pricing-box">
@@ -269,16 +275,17 @@
 </div>
 
 <script>
-    // System Variables
+    // PWA Service Worker Registration (if you added sw.js)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed', err));
+    }
+
     let currentWalletBalance = 500;
     let map = null;
     let marker = null;
-    
-    // Variables to hold current item being viewed in detail modal
     let currentItemSek = 0;
     let currentItemKathie = 0;
 
-    // Tab Switching Logic
     function switchTab(tabId) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
@@ -288,58 +295,52 @@
         document.getElementById(tabId + '-section').classList.remove('hidden');
     }
 
-    // --- Detail Modal Logic ---
     function openItemDetail(cardElement) {
-        // Extract data from the clicked card
         const imgSrc = cardElement.querySelector('.card-img-top').src;
-        const title = cardElement.querySelector('.item-title').innerText;
+        // Notice: We clone the title node and remove the NEW badge so it doesn't show in the detail title
+        const titleNode = cardElement.querySelector('.item-title').cloneNode(true);
+        const badge = titleNode.querySelector('.badge-new');
+        if (badge) titleNode.removeChild(badge);
+        
+        const title = titleNode.innerText.trim();
         const loc = cardElement.querySelector('.item-loc').innerText;
+        const time = cardElement.querySelector('.item-time').innerText;
         const desc = cardElement.querySelector('.item-desc').innerText;
         const sek = parseInt(cardElement.querySelector('.raw-sek').innerText);
         const kathie = parseInt(cardElement.querySelector('.raw-kathie').innerText);
 
-        // Populate Detail Modal
         document.getElementById('detailImg').src = imgSrc;
         document.getElementById('detailTitle').innerText = title;
         document.getElementById('detailLoc').innerText = loc;
+        document.getElementById('detailTime').innerText = time;
         document.getElementById('detailDesc').innerText = desc;
         document.getElementById('detailSek').innerText = `${sek} SEK`;
         document.getElementById('detailKathie').innerText = `🪙 ${kathie} KaTHie`;
         
-        // Reset buttons
         const kathieBtn = document.getElementById('payKathieBtn');
         kathieBtn.innerText = "Use Points";
         kathieBtn.disabled = false;
         kathieBtn.style.backgroundColor = "#E8F5E9";
         kathieBtn.style.color = "var(--kathie-color)";
 
-        // Store current prices globally for payment function
         currentItemSek = sek;
         currentItemKathie = kathie;
 
-        // Show Modal
         document.getElementById('detailModal').classList.remove('hidden');
     }
 
-    function closeDetailModal() {
-        document.getElementById('detailModal').classList.add('hidden');
-    }
+    function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); }
 
-    // --- Payment Logic ---
-    function payFiatFromDetail() {
-        alert(`Taking you to Swish/Card payment for ${currentItemSek} SEK... (Simulated)`);
-    }
+    function payFiatFromDetail() { alert(`Taking you to Swish/Card payment for ${currentItemSek} SEK... (Simulated)`); }
 
     function payKathieFromDetail() {
         if (currentWalletBalance >= currentItemKathie) {
             currentWalletBalance -= currentItemKathie;
-            // Update Top Wallet
             document.getElementById('wallet-balance').innerText = currentWalletBalance;
             const walletUi = document.getElementById('user-wallet');
             walletUi.classList.add('bump');
             setTimeout(() => walletUi.classList.remove('bump'), 200);
             
-            // Update Button State
             const btnElement = document.getElementById('payKathieBtn');
             btnElement.innerText = "Paid ✓";
             btnElement.disabled = true;
@@ -347,13 +348,12 @@
             btnElement.style.borderColor = "#999";
             btnElement.style.color = "#666";
             
-            alert(`Success! 🪙 ${currentItemKathie} KaTHie transferred to the neighbour. Your circular economy credit is working!`);
+            alert(`Success! 🪙 ${currentItemKathie} KaTHie transferred. Your circular economy credit is working!`);
         } else {
-            alert(`Not enough KaTHie points! You need 🪙 ${currentItemKathie} but only have 🪙 ${currentWalletBalance}. Offer some help to earn more!`);
+            alert(`Not enough KaTHie points! You need 🪙 ${currentItemKathie} but only have 🪙 ${currentWalletBalance}.`);
         }
     }
 
-    // --- Post Form & Map Logic ---
     function openPostModal() { 
         document.getElementById('postModal').classList.remove('hidden'); 
         if (!map) {
@@ -388,7 +388,6 @@
         }
     }
 
-    // Handle Form Submission -> Create New Card
     document.getElementById('postForm').addEventListener('submit', function(e) {
         e.preventDefault(); 
         
@@ -399,19 +398,24 @@
         const sek = document.getElementById('itemSek').value;
         const kathie = document.getElementById('itemKathie').value;
         
-        // Use uploaded image, or a default placeholder if none uploaded
-        let imageSrc = 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80'; // Default gray/generic placeholder
+        let imageSrc = 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80';
         if (document.getElementById('imagePreview').style.display === 'block') {
             imageSrc = document.getElementById('imagePreview').src;
         }
 
-        // Build HTML string for the new card
+        // Dynamically get current time for new posts
+        const now = new Date();
+        const timeString = `Today, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
         const newCardHTML = `
             <div class="card" onclick="openItemDetail(this)">
                 <img src="${imageSrc}" class="card-img-top" alt="${title}">
                 <div class="card-body">
-                    <h3 class="item-title">${title}</h3>
-                    <div class="location item-loc">📍 ${loc}</div>
+                    <h3 class="item-title">${title} <span class="badge-new">NEW</span></h3>
+                    <div class="post-meta">
+                        <span class="location item-loc">📍 ${loc}</span>
+                        <span class="post-time item-time">🕒 ${timeString}</span>
+                    </div>
                     <p class="card-desc item-desc">${desc}</p>
                     <div class="card-price-summary">
                         <span><span class="raw-sek">${sek}</span> SEK</span>
