@@ -16,145 +16,86 @@
             --text-color: #333;
             --kathie-color: #2E7D32; 
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-        header {
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .wallet {
-            background-color: #E8F5E9;
-            color: var(--kathie-color);
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            border: 1px solid #A5D6A7;
-            transition: transform 0.2s;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); }
+        
+        header { background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-decoration: none; letter-spacing: 1px; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        
+        .wallet { background-color: #E8F5E9; color: var(--kathie-color); padding: 6px 12px; border-radius: 15px; font-weight: bold; display: flex; align-items: center; gap: 5px; border: 1px solid #A5D6A7; transition: transform 0.2s; }
         .wallet.bump { transform: scale(1.1); background-color: #C8E6C9; }
-        .btn-post {
-            background-color: var(--secondary-color);
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-        }
+        
+        .btn-post { background-color: var(--secondary-color); color: #000; padding: 8px 16px; border-radius: 20px; font-weight: bold; text-decoration: none; cursor: pointer; border: none; font-size: 1rem; }
         .btn-post:hover { opacity: 0.8; }
         
         /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('edited-image.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-        .hero h1.main-title { 
-            font-size: 4.5rem; 
-            margin: 0 0 10px 0; 
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color);
-        }
+        .hero { background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('edited-image.jpg'); background-size: cover; background-position: center; color: white; text-align: center; padding: 4rem 2rem; }
+        .hero h1.main-title { font-size: 4.5rem; margin: 0 0 10px 0; letter-spacing: 2px; text-shadow: 0 0 15px var(--primary-color), 0 0 30px var(--secondary-color); }
         .hero p.desc { color: var(--secondary-color); font-weight: bold; font-size: 1.2rem; }
 
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .tabs {
-            display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;
-            border-bottom: 2px solid #ddd; padding-bottom: 10px;
-        }
+        .tabs { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
         .tab { font-size: 1.1rem; cursor: pointer; padding: 8px 15px; color: #777; border-radius: 5px 5px 0 0; }
         .tab:hover { background-color: #e9ecef; }
         .tab.active { color: var(--primary-color); border-bottom: 3px solid var(--primary-color); font-weight: bold; background-color: #fff; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card {
-            background: white; border-radius: 8px; padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex; flex-direction: column;
-            border-top: 4px solid var(--primary-color);
+        /* Card Grid Update for Thumbnails */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { 
+            background: white; border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; 
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden; /* Keeps image corners rounded */
+            border: 1px solid #eee;
         }
-        .card h3 { margin-top: 0; color: var(--primary-color); margin-bottom: 10px;}
-        .card p { flex-grow: 1; margin-top: 0; font-size: 0.95rem; color: #555;}
-        .location { font-size: 0.85rem; color: #888; margin: 10px 0;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         
-        /* Card Image Style */
-        .item-image {
-            width: 100%; height: 180px; object-fit: cover;
-            border-radius: 6px; margin-bottom: 15px;
-            background-color: #f0f0f0;
-        }
+        /* Thumbnail Image */
+        .card-img-top { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid #eee; background-color: #f8f9fa;}
+        
+        .card-body { padding: 15px; }
+        .card h3 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .card-desc { display: none; } /* Hidden in thumbnail, shown in modal */
+        .location { font-size: 0.85rem; color: #888; margin-bottom: 10px;}
+        .card-price-summary { font-weight: bold; color: var(--text-color); font-size: 0.95rem; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between;}
+        .summary-kathie { color: var(--kathie-color); }
 
-        /* Pricing */
-        .pricing-box { background-color: #f9f9f9; border-radius: 6px; padding: 10px; border: 1px dashed #ccc; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .price-fiat { font-weight: bold; font-size: 0.9rem;}
-        .price-kathie { font-weight: bold; color: var(--kathie-color); font-size: 0.9rem;}
-        .pay-btn { background: white; border: 1px solid #ccc; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        .hidden { display: none !important; }
+
+        /* Modals (Post Form & Detail View) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; overflow-y: auto; padding: 20px 0; backdrop-filter: blur(3px);}
+        .modal { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 550px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin: auto; position: relative;}
+        
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; transition: color 0.2s;}
+        .close-btn:hover { color: #000; }
+
+        /* Detail Modal Specifics */
+        .detail-img-large { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; background-color: #eee;}
+        .detail-modal h2 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 1.8rem;}
+        .detail-modal .location { font-size: 1rem; color: #666; margin-bottom: 15px; }
+        .detail-modal p { font-size: 1.05rem; line-height: 1.5; color: #444; margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;}
+        
+        .pricing-box { background-color: #fff; border-radius: 8px; padding: 15px; border: 2px dashed #ddd; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .price-row:last-child { margin-bottom: 0; }
+        .price-fiat { font-weight: bold; font-size: 1.1rem;}
+        .price-kathie { font-weight: bold; color: var(--kathie-color); font-size: 1.1rem;}
+        .pay-btn { background: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s;}
         .pay-btn:hover { background-color: #eee; }
         .pay-btn.kathie-btn { border-color: #A5D6A7; background-color: #E8F5E9; color: var(--kathie-color); }
         .pay-btn.kathie-btn:hover { background-color: #C8E6C9; }
 
-        .hidden { display: none !important; }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center;
-            z-index: 1000; overflow-y: auto; padding: 20px 0;
-        }
-        .modal {
-            background: white; padding: 30px; border-radius: 10px;
-            width: 90%; max-width: 600px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            margin: auto;
-        }
-        .modal h2 { margin-top: 0; color: var(--primary-color); }
+        /* Form Styles */
+        .modal h2.form-title { margin-top: 0; margin-bottom: 20px; color: var(--primary-color); }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;}
-        .form-group input[type="text"], .form-group input[type="number"], .form-group select, .form-group textarea {
-            width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
-        }
-        
-        /* Map and Image Preview Styles */
-        #map-container { height: 200px; width: 100%; border-radius: 4px; border: 1px solid #ccc; margin-top: 5px; z-index: 1;}
-        .image-preview {
-            max-width: 100%; max-height: 150px; margin-top: 10px; display: none; border-radius: 4px;
-        }
-
+        .form-group input[type="text"], .form-group input[type="number"], .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        #map-container { height: 200px; width: 100%; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px; z-index: 1;}
+        .image-preview { max-width: 100%; max-height: 150px; margin-top: 10px; display: none; border-radius: 6px; object-fit: cover;}
         .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;}
-        .btn-cancel { background: #eee; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;}
-        .btn-submit { background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;}
+        .btn-cancel { background: #eee; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;}
+        .btn-submit { background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;}
     </style>
 </head>
 <body>
@@ -165,7 +106,7 @@
         <div class="wallet" id="user-wallet" title="Your Community Credits">
             🪙 <span id="wallet-balance">500</span> KaTHie
         </div>
-        <button class="btn-post" onclick="openModal()">+ Post Request</button>
+        <button class="btn-post" onclick="openPostModal()">+ Post Request</button>
     </div>
 </header>
 
@@ -183,49 +124,82 @@
     </div>
 
     <div id="rent-section" class="grid tab-content">
-        <div class="card">
-            <h3>Power Drill</h3>
-            <p>Perfect for weekend furniture assembly. Fully charged.</p>
-            <div class="location">📍 Lappis</div>
-            <div class="pricing-box">
-                <div class="price-row"><span class="price-fiat">20 SEK</span><button class="pay-btn" onclick="payFiat(20)">Pay SEK</button></div>
-                <div class="price-row"><span class="price-kathie">🪙 40 KaTHie</span><button class="pay-btn kathie-btn" onclick="payKathie(40, this)">Use Points</button></div>
+        <div class="card" onclick="openItemDetail(this)">
+            <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Power Drill">
+            <div class="card-body">
+                <h3 class="item-title">Power Drill</h3>
+                <div class="location item-loc">📍 Lappis</div>
+                <p class="card-desc item-desc">Perfect for weekend furniture assembly. Fully charged with all drill bits included. Can lend it for the whole weekend.</p>
+                <div class="card-price-summary">
+                    <span><span class="raw-sek">20</span> SEK</span>
+                    <span class="summary-kathie">🪙 <span class="raw-kathie">40</span></span>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="buy-section" class="grid tab-content hidden">
-        <div class="card" style="border-top-color: var(--secondary-color)">
-            <h3>IKEA Desk</h3>
-            <p>Graduation clearance. Great condition.</p>
-            <div class="location">📍 Teknikringen</div>
-            <div class="pricing-box">
-                <div class="price-row"><span class="price-fiat">150 SEK</span><button class="pay-btn" onclick="payFiat(150)">Pay SEK</button></div>
-                <div class="price-row"><span class="price-kathie">🪙 300 KaTHie</span><button class="pay-btn kathie-btn" onclick="payKathie(300, this)">Use Points</button></div>
+        <div class="card" onclick="openItemDetail(this)">
+            <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6ea?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="IKEA Desk">
+            <div class="card-body">
+                <h3 class="item-title">IKEA Desk</h3>
+                <div class="location item-loc">📍 Teknikringen</div>
+                <p class="card-desc item-desc">Graduation clearance. Great condition, standard 120x60cm white desk. You will need an extra hand to move it downstairs.</p>
+                <div class="card-price-summary">
+                    <span><span class="raw-sek">150</span> SEK</span>
+                    <span class="summary-kathie">🪙 <span class="raw-kathie">300</span></span>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="gigs-section" class="grid tab-content hidden">
-        <div class="card" style="border-top-color: #E64A19">
-            <h3>Help moving 3 boxes</h3>
-            <p>Need strong arms to move boxes from T-bana to my room.</p>
-            <div class="location">📍 Universitetet Station</div>
-            <div class="pricing-box">
-                <div class="price-row"><span class="price-fiat">50 SEK</span><button class="pay-btn" onclick="payFiat(50)">Pay SEK</button></div>
-                <div class="price-row"><span class="price-kathie">🪙 100 KaTHie</span><button class="pay-btn kathie-btn" onclick="payKathie(100, this)">Use Points</button></div>
+        <div class="card" onclick="openItemDetail(this)">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Moving Boxes">
+            <div class="card-body">
+                <h3 class="item-title">Help moving 3 boxes</h3>
+                <div class="location item-loc">📍 Universitetet Station</div>
+                <p class="card-desc item-desc">Need strong arms to help me move 3 heavy boxes from the T-bana station to my corridor room. Should take about 20 mins.</p>
+                <div class="card-price-summary">
+                    <span><span class="raw-sek">50</span> SEK</span>
+                    <span class="summary-kathie">🪙 <span class="raw-kathie">100</span></span>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="skills-section" class="grid tab-content hidden">
-        <div class="card" style="border-top-color: #8E24AA">
-            <h3>Python Debugging Help</h3>
-            <p>Stuck on an assignment. Need 1 hour of help.</p>
-            <div class="location">📍 KTH Library</div>
-            <div class="pricing-box">
-                <div class="price-row"><span class="price-fiat">80 SEK</span><button class="pay-btn" onclick="payFiat(80)">Pay SEK</button></div>
-                <div class="price-row"><span class="price-kathie">🪙 150 KaTHie</span><button class="pay-btn kathie-btn" onclick="payKathie(150, this)">Use Points</button></div>
+        <div class="card" onclick="openItemDetail(this)">
+            <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Coding">
+            <div class="card-body">
+                <h3 class="item-title">Python Debugging Help</h3>
+                <div class="location item-loc">📍 KTH Library</div>
+                <p class="card-desc item-desc">Stuck on a machine learning assignment (pandas/numpy). Need someone to sit with me for 1 hour to figure out where my array shapes are going wrong.</p>
+                <div class="card-price-summary">
+                    <span><span class="raw-sek">80</span> SEK</span>
+                    <span class="summary-kathie">🪙 <span class="raw-kathie">150</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detailModal" class="modal-overlay hidden">
+    <div class="modal detail-modal">
+        <span class="close-btn" onclick="closeDetailModal()">&times;</span>
+        <img id="detailImg" class="detail-img-large" src="" alt="Item Image">
+        <h2 id="detailTitle">Item Title</h2>
+        <div class="location" id="detailLoc">📍 Location</div>
+        <p id="detailDesc">Full description goes here.</p>
+        
+        <div class="pricing-box">
+            <div class="price-row">
+                <span class="price-fiat" id="detailSek">0 SEK</span>
+                <button class="pay-btn" onclick="payFiatFromDetail()">Pay SEK</button>
+            </div>
+            <div class="price-row">
+                <span class="price-kathie" id="detailKathie">🪙 0 KaTHie</span>
+                <button class="pay-btn kathie-btn" id="payKathieBtn" onclick="payKathieFromDetail()">Use Points</button>
             </div>
         </div>
     </div>
@@ -233,7 +207,8 @@
 
 <div id="postModal" class="modal-overlay hidden">
     <div class="modal">
-        <h2>Post a Request / Offer</h2>
+        <span class="close-btn" onclick="closePostModal()">&times;</span>
+        <h2 class="form-title">Post a Request / Offer</h2>
         <form id="postForm">
             <div class="form-group">
                 <label>Category</label>
@@ -252,19 +227,16 @@
                 <label>Description</label>
                 <textarea id="itemDesc" rows="2" placeholder="Briefly describe what you need or offer..." required></textarea>
             </div>
-            
             <div class="form-group">
                 <label>Upload Photo (Optional)</label>
                 <input type="file" id="itemImage" accept="image/*" onchange="previewImage(event)">
                 <img id="imagePreview" class="image-preview" src="" alt="Image Preview">
             </div>
-
             <div class="form-group">
                 <label>Location (Type name or Pin on Map)</label>
                 <input type="text" id="itemLoc" placeholder="e.g., Lappis, Main Campus" required>
                 <div id="map-container"></div>
             </div>
-
             <div style="display: flex; gap: 10px;">
                 <div class="form-group" style="flex: 1;">
                     <label>Price (SEK)</label>
@@ -276,7 +248,7 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn-cancel" onclick="closePostModal()">Cancel</button>
                 <button type="submit" class="btn-submit">Post Now</button>
             </div>
         </form>
@@ -288,6 +260,10 @@
     let currentWalletBalance = 500;
     let map = null;
     let marker = null;
+    
+    // Variables to hold current item being viewed in detail modal
+    let currentItemSek = 0;
+    let currentItemKathie = 0;
 
     // Tab Switching Logic
     function switchTab(tabId) {
@@ -299,41 +275,93 @@
         document.getElementById(tabId + '-section').classList.remove('hidden');
     }
 
-    // Modal & Map Logic
-    function openModal() { 
-        document.getElementById('postModal').classList.remove('hidden'); 
-        
-        // Initialize map only once when modal opens
-        if (!map) {
-            // Set center to KTH Main Campus coordinates
-            map = L.map('map-container').setView([59.3496, 18.0706], 14);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
+    // --- Detail Modal Logic ---
+    function openItemDetail(cardElement) {
+        // Extract data from the clicked card
+        const imgSrc = cardElement.querySelector('.card-img-top').src;
+        const title = cardElement.querySelector('.item-title').innerText;
+        const loc = cardElement.querySelector('.item-loc').innerText;
+        const desc = cardElement.querySelector('.item-desc').innerText;
+        const sek = parseInt(cardElement.querySelector('.raw-sek').innerText);
+        const kathie = parseInt(cardElement.querySelector('.raw-kathie').innerText);
 
-            // Add click event to place marker
+        // Populate Detail Modal
+        document.getElementById('detailImg').src = imgSrc;
+        document.getElementById('detailTitle').innerText = title;
+        document.getElementById('detailLoc').innerText = loc;
+        document.getElementById('detailDesc').innerText = desc;
+        document.getElementById('detailSek').innerText = `${sek} SEK`;
+        document.getElementById('detailKathie').innerText = `🪙 ${kathie} KaTHie`;
+        
+        // Reset buttons
+        const kathieBtn = document.getElementById('payKathieBtn');
+        kathieBtn.innerText = "Use Points";
+        kathieBtn.disabled = false;
+        kathieBtn.style.backgroundColor = "#E8F5E9";
+        kathieBtn.style.color = "var(--kathie-color)";
+
+        // Store current prices globally for payment function
+        currentItemSek = sek;
+        currentItemKathie = kathie;
+
+        // Show Modal
+        document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() {
+        document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    // --- Payment Logic ---
+    function payFiatFromDetail() {
+        alert(`Taking you to Swish/Card payment for ${currentItemSek} SEK... (Simulated)`);
+    }
+
+    function payKathieFromDetail() {
+        if (currentWalletBalance >= currentItemKathie) {
+            currentWalletBalance -= currentItemKathie;
+            // Update Top Wallet
+            document.getElementById('wallet-balance').innerText = currentWalletBalance;
+            const walletUi = document.getElementById('user-wallet');
+            walletUi.classList.add('bump');
+            setTimeout(() => walletUi.classList.remove('bump'), 200);
+            
+            // Update Button State
+            const btnElement = document.getElementById('payKathieBtn');
+            btnElement.innerText = "Paid ✓";
+            btnElement.disabled = true;
+            btnElement.style.backgroundColor = "#ccc";
+            btnElement.style.borderColor = "#999";
+            btnElement.style.color = "#666";
+            
+            alert(`Success! 🪙 ${currentItemKathie} KaTHie transferred to the neighbour. Your circular economy credit is working!`);
+        } else {
+            alert(`Not enough KaTHie points! You need 🪙 ${currentItemKathie} but only have 🪙 ${currentWalletBalance}. Offer some help to earn more!`);
+        }
+    }
+
+    // --- Post Form & Map Logic ---
+    function openPostModal() { 
+        document.getElementById('postModal').classList.remove('hidden'); 
+        if (!map) {
+            map = L.map('map-container').setView([59.3496, 18.0706], 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
             map.on('click', function(e) {
-                if (marker) {
-                    map.removeLayer(marker);
-                }
+                if (marker) map.removeLayer(marker);
                 marker = L.marker(e.latlng).addTo(map);
-                // Update text input to show coordinates simply
-                document.getElementById('itemLoc').value = "Selected on Map (Lat: " + Math.round(e.latlng.lat*1000)/1000 + ")";
+                document.getElementById('itemLoc').value = "Map Pin (Lat: " + Math.round(e.latlng.lat*1000)/1000 + ")";
             });
         }
-        
-        // Fix map rendering issue inside hidden divs
         setTimeout(() => { map.invalidateSize(); }, 200);
     }
 
-    function closeModal() { 
+    function closePostModal() { 
         document.getElementById('postModal').classList.add('hidden'); 
         document.getElementById('postForm').reset(); 
         document.getElementById('imagePreview').style.display = 'none';
         if(marker) { map.removeLayer(marker); marker = null; }
     }
 
-    // Image Preview Logic
     function previewImage(event) {
         const file = event.target.files[0];
         if (file) {
@@ -347,30 +375,7 @@
         }
     }
 
-    // Payment Logic (Gamification)
-    function payFiat(amount) { alert(`Taking you to Swish/Card payment for ${amount} SEK... (Simulated)`); }
-
-    function payKathie(amount, btnElement) {
-        if (currentWalletBalance >= amount) {
-            currentWalletBalance -= amount;
-            document.getElementById('wallet-balance').innerText = currentWalletBalance;
-            const walletUi = document.getElementById('user-wallet');
-            walletUi.classList.add('bump');
-            setTimeout(() => walletUi.classList.remove('bump'), 200);
-            
-            btnElement.innerText = "Paid ✓";
-            btnElement.disabled = true;
-            btnElement.style.backgroundColor = "#ccc";
-            btnElement.style.borderColor = "#999";
-            btnElement.style.color = "#666";
-            
-            alert(`Success! 🪙 ${amount} KaTHie transferred to the neighbour. Your circular economy credit is working!`);
-        } else {
-            alert(`Not enough KaTHie points! You need 🪙 ${amount} but only have 🪙 ${currentWalletBalance}.`);
-        }
-    }
-
-    // Handle Form Submission with Image Processing
+    // Handle Form Submission -> Create New Card
     document.getElementById('postForm').addEventListener('submit', function(e) {
         e.preventDefault(); 
         
@@ -381,27 +386,24 @@
         const sek = document.getElementById('itemSek').value;
         const kathie = document.getElementById('itemKathie').value;
         
-        // Check if image exists
-        const imageSrc = document.getElementById('imagePreview').src;
-        let imageHTML = '';
+        // Use uploaded image, or a default placeholder if none uploaded
+        let imageSrc = 'https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80'; // Default gray/generic placeholder
         if (document.getElementById('imagePreview').style.display === 'block') {
-            imageHTML = `<img src="${imageSrc}" class="item-image" alt="User uploaded image">`;
+            imageSrc = document.getElementById('imagePreview').src;
         }
 
-        let borderColor = 'var(--primary-color)';
-        if(cat === 'buy') borderColor = 'var(--secondary-color)';
-        if(cat === 'gigs') borderColor = '#E64A19';
-        if(cat === 'skills') borderColor = '#8E24AA';
-
+        // Build HTML string for the new card
         const newCardHTML = `
-            <div class="card" style="border-top-color: ${borderColor}">
-                ${imageHTML}
-                <h3>${title} <span style="font-size:0.6rem; background:var(--secondary-color); color:black; padding:2px 5px; border-radius:10px;">NEW</span></h3>
-                <p>${desc}</p>
-                <div class="location">📍 ${loc}</div>
-                <div class="pricing-box">
-                    <div class="price-row"><span class="price-fiat">${sek} SEK</span><button class="pay-btn" onclick="payFiat(${sek})">Pay SEK</button></div>
-                    <div class="price-row"><span class="price-kathie">🪙 ${kathie} KaTHie</span><button class="pay-btn kathie-btn" onclick="payKathie(${kathie}, this)">Use Points</button></div>
+            <div class="card" onclick="openItemDetail(this)">
+                <img src="${imageSrc}" class="card-img-top" alt="${title}">
+                <div class="card-body">
+                    <h3 class="item-title">${title} <span style="font-size:0.6rem; background:var(--secondary-color); color:black; padding:2px 5px; border-radius:10px; vertical-align: middle;">NEW</span></h3>
+                    <div class="location item-loc">📍 ${loc}</div>
+                    <p class="card-desc item-desc">${desc}</p>
+                    <div class="card-price-summary">
+                        <span><span class="raw-sek">${sek}</span> SEK</span>
+                        <span class="summary-kathie">🪙 <span class="raw-kathie">${kathie}</span></span>
+                    </div>
                 </div>
             </div>
         `;
@@ -409,8 +411,8 @@
         const section = document.getElementById(cat + '-section');
         section.insertAdjacentHTML('afterbegin', newCardHTML); 
 
-        closeModal();
-        alert('Your request has been posted successfully! Switch to the correct tab to see it.');
+        closePostModal();
+        alert('Your request has been posted! Switch to the correct tab to see it.');
     });
 </script>
 
